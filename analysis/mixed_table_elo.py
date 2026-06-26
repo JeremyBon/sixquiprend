@@ -31,6 +31,12 @@ from strategies.gap_hunter import GapHunterStrategy
 from strategies.penalty_dodger import PenaltyDodgerStrategy
 from strategies.equalizer import EqualizerStrategy
 from strategies.corner_pusher import CornerPusherStrategy
+from strategies.composite_scorer import CompositeScorerStrategy
+from strategies.endgame_aware import EndgameAwareStrategy
+from strategies.threat_assessor import ThreatAssessorStrategy
+from strategies.card_tracker import CardTrackerStrategy
+from strategies.adaptive_meta import AdaptiveMetaStrategy
+from strategies.regret_minimizer import RegretMinimizerStrategy
 
 REGISTRY = {
     "Random":        RandomStrategy,
@@ -44,6 +50,12 @@ REGISTRY = {
     "PenaltyDodger": PenaltyDodgerStrategy,
     "Equalizer":     EqualizerStrategy,
     "CornerPusher":  CornerPusherStrategy,
+    "Composite":     CompositeScorerStrategy,
+    "EndgameAware":  EndgameAwareStrategy,
+    "ThreatAssess":  ThreatAssessorStrategy,
+    "CardTracker":   CardTrackerStrategy,
+    "AdaptiveMeta":  AdaptiveMetaStrategy,
+    "RegretMin":     RegretMinimizerStrategy,
 }
 
 # ── Table compositions ────────────────────────────────────────────────────
@@ -96,6 +108,37 @@ TABLE_COMPOSITIONS = [
     # --- Counter-meta: designed to beat HighestCard ---
     ("counter_H",       ["MidRange","MidRange","GapHunter","PenaltyDodger","Greedy","Cautious"]),
     ("counter_H2",      ["Equalizer","SafePlace","CornerPusher","PenaltyDodger","MidRange","Greedy"]),
+
+    # --- New strats: pure ---
+    ("pure_composite",  ["Composite"] * 6),
+    ("pure_regret",     ["RegretMin"] * 6),
+    ("pure_tracker",    ["CardTracker"] * 6),
+    ("pure_threat",     ["ThreatAssess"] * 6),
+    ("pure_endgame",    ["EndgameAware"] * 6),
+    ("pure_adaptive",   ["AdaptiveMeta"] * 6),
+
+    # --- New strats vs HighestCard ---
+    ("new_vs_H_A",      ["Composite","CardTracker","RegretMin","HighestCard","HighestCard","HighestCard"]),
+    ("new_vs_H_B",      ["EndgameAware","ThreatAssess","AdaptiveMeta","HighestCard","HighestCard","HighestCard"]),
+
+    # --- New strats mixed ---
+    ("new_chaos_A",     ["Composite","CardTracker","EndgameAware","ThreatAssess","AdaptiveMeta","RegretMin"]),
+    ("new_chaos_B",     ["Composite","HighestCard","MidRange","CardTracker","GapHunter","RegretMin"]),
+    ("new_chaos_C",     ["EndgameAware","ThreatAssess","AdaptiveMeta","Greedy","PenaltyDodger","SafePlace"]),
+
+    # --- Full all-different (17 strats, pick 6) ---
+    ("all17_set_A",     ["HighestCard","MidRange","Composite","CardTracker","GapHunter","RegretMin"]),
+    ("all17_set_B",     ["EndgameAware","ThreatAssess","AdaptiveMeta","Greedy","PenaltyDodger","CornerPusher"]),
+    ("all17_set_C",     ["HighestCard","Composite","EndgameAware","MidRange","ThreatAssess","AdaptiveMeta"]),
+    ("all17_set_D",     ["CardTracker","RegretMin","GapHunter","SafePlace","Cautious","Equalizer"]),
+
+    # --- Beginner + new smart ---
+    ("beginner_new1",   ["Random","Random","Random","Random","Composite","CardTracker"]),
+    ("beginner_new2",   ["Random","Random","Random","HighestCard","EndgameAware","RegretMin"]),
+
+    # --- Expert new-only ---
+    ("expert_new",      ["Composite","CardTracker","EndgameAware","ThreatAssess","AdaptiveMeta","RegretMin"]),
+    ("expert_mix_new",  ["HighestCard","MidRange","Composite","ThreatAssess","CardTracker","AdaptiveMeta"]),
 ]
 
 BASE_ELO = 1500

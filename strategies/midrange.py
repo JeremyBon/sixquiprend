@@ -13,10 +13,10 @@ from strategies.base import Strategy
 
 
 class MidRangeStrategy(Strategy):
-    def choose_card(self, hand: list[Card], board: list[tuple[int, int, int]]) -> Card:
+    def choose_card(self, hand, board, ctx=None):
         heads = sorted(h for h, _, _ in board)
         median = heads[len(heads) // 2]
         return min(hand, key=lambda c: (abs(c.value - median), c.value))
 
-    def choose_row(self, hand: list[Card], board: list[tuple[int, int, int]], card: Card) -> int:
+    def choose_row(self, hand, board, card, ctx=None):
         return min(range(len(board)), key=lambda i: board[i][1])

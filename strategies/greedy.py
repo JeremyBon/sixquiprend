@@ -34,8 +34,8 @@ def _card_cost(card: Card, board: list[tuple[int, int, int]]) -> float:
 
 
 class GreedyStrategy(Strategy):
-    def choose_card(self, hand: list[Card], board: list[tuple[int, int, int]]) -> Card:
+    def choose_card(self, hand, board, ctx=None):
         return min(hand, key=lambda c: (_card_cost(c, board), c.value))
 
-    def choose_row(self, hand: list[Card], board: list[tuple[int, int, int]], card: Card) -> int:
+    def choose_row(self, hand, board, card, ctx=None):
         return min(range(len(board)), key=lambda i: board[i][1])

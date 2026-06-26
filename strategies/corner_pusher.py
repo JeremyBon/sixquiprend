@@ -39,10 +39,10 @@ def _classify(card: Card, board: list[tuple[int, int, int]]) -> tuple:
 
 
 class CornerPusherStrategy(Strategy):
-    def choose_card(self, hand: list[Card], board: list[tuple[int, int, int]]) -> Card:
+    def choose_card(self, hand, board, ctx=None):
         return min(hand, key=lambda c: _classify(c, board))
 
-    def choose_row(self, hand: list[Card], board: list[tuple[int, int, int]], card: Card) -> int:
+    def choose_row(self, hand, board, card, ctx=None):
         min_pen = min(p for _, p, _ in board)
         candidates = [i for i, (_, p, _) in enumerate(board) if p <= min_pen + 2]
         # Among cheap rows, prefer highest head (harder for opponents to land on)

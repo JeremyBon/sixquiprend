@@ -9,8 +9,8 @@ class RandomStrategy(Strategy):
     def __init__(self, seed: int | None = None):
         self._rng = random.Random(seed)
 
-    def choose_card(self, hand: list[Card], board: list[tuple[int, int, int]]) -> Card:
+    def choose_card(self, hand, board, ctx=None):
         return self._rng.choice(hand)
 
-    def choose_row(self, hand: list[Card], board: list[tuple[int, int, int]], card: Card) -> int:
+    def choose_row(self, hand, board, card, ctx=None):
         return self._rng.randrange(len(board))
