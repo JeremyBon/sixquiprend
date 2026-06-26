@@ -60,6 +60,6 @@ class Board:
         row.cards = [new_card]
         return taken
 
-    def snapshot(self) -> list[tuple[int, int]]:
-        """(head_value, row_penalty) per row — for strategies."""
-        return [(r.head.value, r.penalty) for r in self.rows]
+    def snapshot(self) -> list[tuple[int, int, int]]:
+        """(head_value, row_penalty, row_length) per row — for strategies."""
+        return [(r.head.value, r.penalty, len(r)) for r in self.rows]

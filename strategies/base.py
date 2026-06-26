@@ -6,9 +6,9 @@ from game.card import Card
 
 class Strategy(ABC):
     @abstractmethod
-    def choose_card(self, hand: list[Card], board: list[tuple[int, int]]) -> Card:
-        """Pick a card to play. board = [(head_value, row_penalty), ...]"""
+    def choose_card(self, hand: list[Card], board: list[tuple[int, int, int]]) -> Card:
+        """Pick a card to play. board = [(head_value, row_penalty, row_length), ...]"""
 
     @abstractmethod
-    def choose_row(self, hand: list[Card], board: list[tuple[int, int]], card: Card) -> int:
+    def choose_row(self, hand: list[Card], board: list[tuple[int, int, int]], card: Card) -> int:
         """Card is smaller than all heads — pick which row to take."""
