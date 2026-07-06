@@ -1,5 +1,9 @@
 # 6 qui prend — Strategy Simulator
 
+<p align="center">
+  <img src="assets/cover.webp" alt="6 qui prend" width="220"/>
+</p>
+
 Simulation engine for the card game **6 qui prend** (Take 6 / Category 5), built to find the best strategy through large-scale tournaments and ELO ranking.
 
 ## What it does
